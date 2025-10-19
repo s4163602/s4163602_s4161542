@@ -1,0 +1,31 @@
+ section {
+    height: 100vh;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.8s ease;
+    padding: 6rem 2rem 4rem; /* space for fixed navbar */
+  }
+/* Mission Section */
+  .mission {
+    background: #f9fafb;
+    text-align: center;
+    max-width: 800px;
+    padding: 2rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .mission h1 {
+    font-size: 15 rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+  }
+
+  .mission p {
+    color: #374151;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }

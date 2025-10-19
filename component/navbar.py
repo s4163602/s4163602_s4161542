@@ -4,6 +4,7 @@ navbar = """
       <div class="logo">LOGO</div>
       <ul class="nav-links">
         <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="/about">About</a></li>
         <li class="dropdown">
           <a href="#">Data Explorer ▾</a>
           <ul class="dropdown-menu">
