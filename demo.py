@@ -1,6 +1,6 @@
 import pyhtml
 import pages.home
-
+import pages.about
 
 pyhtml.need_debugging_help=True
 
