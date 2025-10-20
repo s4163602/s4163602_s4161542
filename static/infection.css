@@ -1,0 +1,136 @@
+/* ---------- Base palette & sizing ---------- */
+:root{
+  --bg: #ffffff;
+  --text: #1b1b1b;
+  --muted: #6b7280;      /* subtle label color */
+  --border: #2e2e2e;     /* dark table borders to match wireframe */
+  --surface: #fafafa;    /* header cells background */
+  --ring: #d1d5db;       /* focus ring */
+  --radius: 14px;
+  --container-w: 1100px;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.45 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+}
+
+/* ---------- Layout ---------- */
+.container{
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+.section{
+  background: var(--bg);                 /* keeps sections the same color */
+}
+.page-title{
+  margin: 12px 0 18px;
+  font-size: 40px;
+  line-height: 1.1;
+  font-weight: 800;
+  text-align: center;
+}
+.section-title{
+  margin: 12px 0 14px;
+  font-size: 22px;
+  text-align: center;
+  font-weight: 700;
+}
+
+/* ---------- Section separator line ---------- */
+.section-divider{
+  border: none;
+  height: 1px;
+  background: var(--border);
+  opacity: 0.35;
+  margin: 48px 0;
+}
+
+/* ---------- Filters row ---------- */
+.filters{
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: end;
+  margin: 8px 0 18px;
+}
+.filter{
+  display: grid;
+  gap: 6px;
+}
+.filter label{
+  font-size: 12px;
+  color: var(--muted);
+}
+select{
+  appearance: none;
+  padding: 10px 12px;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  min-width: 210px;
+  font-size: 14px;
+  line-height: 1.2;
+}
+select:focus{
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
+}
+
+/* ---------- Tables ---------- */
+.table-wrap{
+  overflow-x: auto;        /* responsive on small screens */
+  border-radius: var(--radius);
+}
+.table{
+  width: 100%;
+  border-collapse: separate;    /* keeps thick outer border clean */
+  border-spacing: 0;
+  border: 2px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.table thead th{
+  background: var(--surface);
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--border);
+}
+.table th, .table td{
+  border-right: 2px solid var(--border);
+}
+.table th:last-child,
+.table td:last-child{
+  border-right: none;
+}
+.table tbody td{
+  padding: 10px 14px;
+}
+.table tbody tr{
+  border-top: 2px solid var(--border);
+}
+.table tbody tr:nth-child(even){
+  background: #fdfdfd;
+}
+.table .placeholder td{
+  text-align: center;
+  color: var(--muted);
+  font-style: italic;
+}
+
+/* Visually hidden (for captions that help screen readers) */
+.sr-only{
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  white-space: nowrap; border: 0;
+}
+
+

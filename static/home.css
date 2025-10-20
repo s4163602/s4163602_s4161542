@@ -11,18 +11,20 @@
 
   /* Hero Section */
   .hero {
-    background: #fff;
+    /*background: #fff;*/
+    color: black; /* test */
     text-align: center;
   }
 
   .hero h1 {
     font-size: 2rem;
+    color: black; /* test*/
     font-weight: 700;
     margin-bottom: 1rem;
   }
 
   .hero p {
-    color: #4b5563;
+    color: black; /* change color */
     max-width: 700px;
     margin: 0 auto 2rem;
   }
