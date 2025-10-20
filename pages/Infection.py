@@ -17,96 +17,100 @@ def get_page_html(form_data):
         <body>
         <!-- Navbar -->
         {component.navbar.navbar}
-        <main class="container">
-        <section class="section" id="infection-section">
-           <h1 class="page-title">Infection</h1>
+        <main>
+       <h1 class="main-heading">Infection</h1>
 
-        <!-- Filters -->
-        <form class="filters" id="filters" method="GET" action="">
-        <div class="filter">
-          <label for="economic_phase">Economic Phase</label>
-          <select id="economic_phase" name="economic_phase">
-            <option value="">All</option>
-            <!-- Fill options from DB later -->
-          </select>
-        </div>
+  <!-- Filter Section -->
+  <div class="filter-section">
+    <label for="economic-phase">Economic Phase:</label>
+    <select id="economic-phase" name="economic-phase">
+      <option value="">Select</option>
+      <option value="developed">Developed</option>
+      <option value="developing">Developing</option>
+    </select>
 
-        <div class="filter">
-          <label for="preventable_disease">Preventable disease</label>
-          <select id="preventable_disease" name="preventable_disease">
-            <option value="">All</option>
-            <!-- Fill options from DB later -->
-          </select>
-        </div>
+    <label for="disease">Preventable Disease:</label>
+    <select id="disease" name="disease">
+      <option value="">Select</option>
+      <option value="measles">Measles</option>
+      <option value="polio">Polio</option>
+    </select>
 
-        <div class="filter">
-          <label for="year">Year</label>
-          <select id="year" name="year">
-            <option value="">All</option>
-            <!-- Fill options from DB later -->
-          </select>
-        </div>
-        </form>
+    <label for="year">Year:</label>
+    <select id="year" name="year">
+      <option value="">Select</option>
+      <option value="2020">2020</option>
+      <option value="2021">2021</option>
+      <option value="2022">2022</option>
+    </select>
+  </div>
 
-        <!-- Main data table -->
-        <div class="table-wrap">
-        <table class="table" id="infection-table" aria-describedby="infection-caption">
-            <caption id="infection-caption" class="sr-only">
-            */Infection data table filtered by the dropdowns above.
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Preventable Disease</th>
-              <th scope="col">Country</th>
-              <th scope="col">Economic Phase</th>
-              <th scope="col">Year</th>
-              <th scope="col">Cases per 100,000 people</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Inject <tr> rows from Python/SQLite here -->
-            <tr class="placeholder">
-              <td colspan="5">No data yet — choose filters or load from database.</td>
-            </tr>
-            </tbody>
-            </table>
-             </div>
-            </section>
+  <!-- Infection Table -->
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Preventable Disease</th>
+        <th>Country</th>
+        <th>Economic Phase</th>
+        <th>Year</th>
+        <th>Cases per 100,000 people</th>
+      </tr>
+    </thead>
+    <tbody id="infection-data">
+      <tr>
+        <td>Measles</td>
+        <td>Australia</td>
+        <td>Developed</td>
+        <td>2022</td>
+        <td>2.5</td>
+      </tr>
+      <tr>
+        <td>Polio</td>
+        <td>India</td>
+        <td>Developing</td>
+        <td>2021</td>
+        <td>14.2</td>
+      </tr>
+    </tbody>
+  </table>
 
-    <!-- Section separator line -->
-    <hr class="section-divider" />
+  <!-- Separator Line -->
+  <hr class="line-separator">
 
-    <section class="section" id="summary-section">
-      <h2 class="section-title">Data Summary</h2>
+  <!-- Data Summary Section -->
+  <h2 class="sub-heading">Data Summary</h2>
 
-      <div class="table-wrap">
-        <table class="table" id="summary-table" aria-describedby="summary-caption">
-          <caption id="summary-caption" class="sr-only">
-            Summary of infection data (aggregated).
-          </caption>
-          <thead>
-            <tr>
-              <th scope="col">Preventable Disease</th>
-              <th scope="col">Economic Phase</th>
-              <th scope="col">Year</th>
-              <th scope="col">Cases</th>
-            </tr>
-          </thead>
-          <tbody>
-            <!-- Inject summary rows from Python/SQLite here -->
-            <tr class="placeholder">
-              <td colspan="4">Summary will appear after data loads.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Preventable Disease</th>
+        <th>Economic Phase</th>
+        <th>Year</th>
+        <th>Cases</th>
+      </tr>
+    </thead>
+    <tbody id="summary-data">
+      <tr>
+        <td>Measles</td>
+        <td>Developed</td>
+        <td>2022</td>
+        <td>250</td>
+      </tr>
+      <tr>
+        <td>Polio</td>
+        <td>Developing</td>
+        <td>2021</td>
+        <td>1400</td>
+      </tr>
+    </tbody>
+  </table>
 
-         <!-- Integrated Footer -->
+  <!-- Integrated Footer -->
             {component.footer.footer}
-</body>
-</html>   
- """
-   
-    return page_html   
+     
+        </main>
+        </body>
+        </html>
+    """
+    
+    return page_html

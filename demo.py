@@ -10,6 +10,7 @@ pyhtml.MyRequestHandler.pages["/"] = pages.home
 pyhtml.MyRequestHandler.pages["/about"] = pages.about
 pyhtml.MyRequestHandler.pages["/Infection"] = pages.Infection
 
+
 #Host the site!
 pyhtml.host_site()
 
