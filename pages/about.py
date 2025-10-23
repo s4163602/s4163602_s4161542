@@ -1,5 +1,6 @@
 import component.navbar
 import component.footer
+import pyhtml
 
 def get_page_html(form_data):
     print("About to return about page...")
@@ -35,31 +36,50 @@ def get_page_html(form_data):
         
         <section class="personas" id="personas">
         <h1>Personas:</h1>
-            <img src="" alt="Persona Image">
-            <p><b>Name:</b> John Doe</p>
-            <p><b>Age:</b> 34</p>
-            <p><b>Info:</b> Health policy advisor working with vaccination data.</p>
-            <p><b>Purpose:</b> Uses website to compare infection trends and vaccination rates.</p>
+            """
+    sql_query = "SELECT * FROM Persona;"
+    results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
+    for row in results:
+            page_html += f"""
+            <div class="user-persona">
+                <image src="{row[6]}" alt="Persona Image" width="150" height="150"/>
+                <p><b>Name:</b> {row[1]}</p>
+                <p><b>Age:</b> {row[2]}</p>
+                <p><b>Sex:</b> {row[3]}</p>
+                <p><b>Occupation:</b> {row[4]}</p>
+                <p><b>Purpose:</b> {row[5]}</p>
+            </div>
+            """
+
+    page_html += """
         </section>
 
         <section class="team" id="team">
             <h1>Team Members:</h1>
-      
-            <p><b>Name:</b> Syed Tawsif Mahmood</p>
-            <p><b>Student ID:</b>s4161542</p>
-            
-            <p><b>Name:</b> Kiet Lark</p>
-            <p><b>Student ID:</b> s4153663</p>
-        </section>
+        """
+    sql_query = "SELECT * FROM Team_Member;"
+    results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
+        
+    for row in results:
+            page_html += f"""
+            <div class="member">
+                <p><b>Student ID:</b> {row[0]} , <b>Name:</b> {row[1]}</p>
+            </div>
+            """
 
 
 
-
+    page_html += f"""    </section>
      <!-- Integrated Footer -->
             {component.footer.footer}
-     
-        </main>
-        </body>
-        </html>
+    </main> 
+     </body>
+    </html>
     """
-    return page_html     
+
+    return page_html
+
+
+
+
+        

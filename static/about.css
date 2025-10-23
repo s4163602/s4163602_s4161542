@@ -69,6 +69,13 @@ section {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+
+  .user-persona {
+    margin-bottom: 1.5rem;
+    display: inline-block;  /* keeps everything centered but allows left alignment inside */
+    text-align: left;       
+    line-height: 1.8;
+  }
 /* Team Section */
   .team {
     background: #fff;
@@ -87,4 +94,11 @@ section {
     color: #374151;
     font-size: 1.125rem;
     line-height: 1.75rem;
+  }
+
+  .member {
+    margin-bottom: 1.5rem;
+    display: inline-block;  /* keeps everything centered but allows left alignment inside */
+    text-align: left;       
+    line-height: 1.8;
   }
