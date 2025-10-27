@@ -190,3 +190,89 @@
       flex-direction: column;
     }
   }
+
+/* =====================================
+   TABLE DESIGN — Vaccination Explorer
+   ===================================== */
+.data-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.data-table:hover {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Table header --- */
+.data-table thead {
+  background: linear-gradient(to right, #eff6ff, #e0f2fe);
+}
+
+.data-table th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  color: #1e3a8a;         /* Tailwind blue-800 */
+  font-weight: 700;
+  font-size: 0.95rem;
+  border-bottom: 2px solid #bfdbfe;
+  letter-spacing: 0.01em;
+}
+
+/* --- Table rows --- */
+.data-table td {
+  padding: 0.85rem 1rem;
+  font-size: 0.95rem;
+  color: #374151;          /* gray-700 */
+  border-bottom: 1px solid #f3f4f6;
+  transition: background 0.15s ease;
+}
+
+.data-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- Hover & zebra striping --- */
+.data-table tbody tr:nth-child(odd) {
+  background-color: #f9fafb;  /* gray-50 */
+}
+
+.data-table tbody tr:hover {
+  background-color: #f1f5f9;  /* gray-100 */
+}
+
+/* --- Rounded corner fix for first & last row --- */
+.data-table tr:first-child th:first-child {
+  border-top-left-radius: 0.75rem;
+}
+.data-table tr:first-child th:last-child {
+  border-top-right-radius: 0.75rem;
+}
+.data-table tr:last-child td:first-child {
+  border-bottom-left-radius: 0.75rem;
+}
+.data-table tr:last-child td:last-child {
+  border-bottom-right-radius: 0.75rem;
+}
+
+/* --- Responsive: scrollable table wrapper --- */
+@media (max-width: 768px) {
+  .data-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    border-radius: 0.5rem;
+  }
+  .data-table th,
+  .data-table td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+}

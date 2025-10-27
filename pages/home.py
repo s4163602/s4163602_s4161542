@@ -20,8 +20,7 @@ def get_page_html(form_data):
         <main>
             <section class="hero" id="hero">
             <h1>Global Vaccination and Infection Data</h1>
-            <p>Unbiased data tracking vaccine impact across countries. Clear, transparent information for researchers and policymakers.</p>
-            <div class="hero-buttons">
+x            <div class="hero-buttons">
                 <button class="btn btn-primary">Explore Vaccination</button>
                 <button class="btn btn-outline">Explore Infection</button>
             </div>

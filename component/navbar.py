@@ -3,11 +3,11 @@ navbar = """
     <div class="nav-left">
       <div class="logo">LOGO</div>
       <ul class="nav-links">
-        <li><a href="#hero" class="active">Home</a></li>
+        <li><a href="/" class="active">Home</a></li>
         <li class="dropdown">
           <a href="#">Data Explorer ▾</a>
           <ul class="dropdown-menu">
-            <li><a href="#facts">Vaccination</a></li>
+            <li><a href="/data_explorer/vaccination">Vaccination</a></li>
             <li><a href="#facts">Infection</a></li>
           </ul>
         </li>
