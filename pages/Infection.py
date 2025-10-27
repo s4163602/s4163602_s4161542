@@ -78,13 +78,14 @@ def get_page_html(form_data):
     </thead>
     """
 
-    sql_query = f"""SELECT Infection_Type.description, Country.name, Economy.phase,YearDate.YearID,InfectionData.cases
+    sql_query = f"""SELECT Infection_Type.description, Country.name, Economy.phase,YearDate.YearID,ROUND((InfectionData.cases/CountryPopulation.population)*100000,2) AS cases_per_100k
 FROM Infection_Type JOIN InfectionData ON Infection_Type.id = InfectionData.inf_type
 JOIN Country ON InfectionData.country = Country.CountryID
 JOIN Economy ON Country.economy = Economy.economyID
+JOIN CountryPopulation ON CountryPopulation.country = Country.CountryID AND CountryPopulation.year = InfectionData.year
 JOIN YearDate ON YearDate.YearID = InfectionData.year
-WHERE Economy.phase = '{economic_phase}' AND Infection_Type.description = '{disease}' AND YearDate.YearID = '{year}'"""
-   
+WHERE Economy.phase = '{economic_phase}' AND Infection_Type.description = '{disease}' AND YearDate.YearID = '{year}';"""
+    
     results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
     page_html += f"""
         <tbody id="infection-data">
@@ -96,7 +97,7 @@ WHERE Economy.phase = '{economic_phase}' AND Infection_Type.description = '{dise
           <td>{row[1]}</td>
           <td>{row[2]}</td>
           <td>{row[3]}</td>
-          <td>{float(row[4])/100000}</td>
+          <td>{row[4]}</td>
         </tr>
         """
     page_html += f"""
@@ -130,7 +131,7 @@ JOIN Economy ON Country.economy = Economy.economyID
 JOIN YearDate ON YearDate.YearID = InfectionData.year
 WHERE description = '{disease}' AND YearID = '{year}'
 GROUP BY Infection_Type.description,Economy.phase,YearDate.YearID
-ORDER BY Economy.phase"""
+ORDER BY Economy.economyID;"""
     results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
     page_html += f"""
     <tbody id="summary-data">

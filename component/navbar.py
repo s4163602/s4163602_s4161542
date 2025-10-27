@@ -3,7 +3,7 @@ navbar = """
     <div class="nav-left">
       <div class="logo">LOGO</div>
       <ul class="nav-links">
-        <li><a href="/" class="active">Home</a></li>
+        <li><a href="/">Home</a></li>
         <li><a href="/about">About</a></li>
         <li class="dropdown">
           <a href="#">Data Explorer ▾</a>
@@ -16,7 +16,7 @@ navbar = """
           <a href="#">Insights ▾</a>
           <ul class="dropdown-menu">
             <li><a href="#insights">Vaccination</a></li>
-            <li><a href="#insights">Infection</a></li>
+            <li><a href="/Infection_Insight">Infection</a></li>
           </ul>
         </li>
       </ul>
