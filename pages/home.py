@@ -22,8 +22,8 @@ def get_page_html(form_data):
             <h1>Global Vaccination and Infection Data</h1>
             <p>Unbiased data tracking vaccine impact across countries. Clear, transparent information for researchers and policymakers.</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary">Explore Vaccination</button>
-                <button class="btn btn-outline">Explore Infection</button>
+                <a href="/vaccination" class="btn btn-primary">Explore Vaccination</a>
+                <a href="/Infection" class="btn btn-outline">Explore Infection</a>
             </div>
             </section>
 
@@ -48,8 +48,8 @@ def get_page_html(form_data):
                 <h3>Dive deep into global health data</h3>
                 <p>Explore detailed vaccination rates, infection trends, and public health insights across different regions and economic groups.</p>
                 <div class="insight-buttons">
-                <button class="btn btn-primary">Vaccination Insights</button>
-                <button class="btn btn-outline">Infection Insights</button>
+                <a href="/vaccination_insight" class="btn btn-primary">Vaccination Insights</a>
+                <a href="/Infection_Insight" class="btn btn-outline">Infection Insights</a>
                 </div>
             </div>
 
