@@ -1,5 +1,4 @@
 import component.navbar
-import component.footer
 import pyhtml
 
 def get_page_html(form_data):
@@ -13,17 +12,18 @@ def get_page_html(form_data):
         <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title> Mission Statement Dashboard</title>
-        <link rel="stylesheet" href="static/main.css">
-        <link rel="stylesheet" href="static/Infection_Insight.css">
+        <title>Infection Insight</title>
+        <!-- Use the same shared styles as other pages -->
+        <link rel="stylesheet" href="/static/style.css">
+        <link rel="stylesheet" href="/static/main.css">
         </head>
 
-        <body>
-        <!-- Navbar -->
+        <body class="page-body">
         {component.navbar.navbar}
-        <main>
-         <h1 class="main-heading">Infection Insight</h1>"""
-         
+        <div class="page-container">
+    """
+
+    
     sql_query = f"""SELECT 
   'Global' AS Country,
   Infection_Type.description AS "Infection Type",
@@ -47,50 +47,59 @@ GROUP BY Infection_Type.description, YearDate.YearID;
     results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
     global_rate = results[0][2] if results else "--"
     page_html += f"""
-         <h2 class="sub-heading"> Global Infection Rate:{global_rate}</h2>
-         
-         <!-- Filter Section -->
-         <form  method="GET">
-         <div class="filter-section">
-          <label for="disease">Infection Type</label>
-          <select id="disease" name="disease">
-          <option value="">Select</option>
-          """
+          <h2 class="table-heading">Global Infection Rate: {global_rate}</h2>
+
+          <!-- Filters -->
+          <form method="GET" class="filter-bar">
+            <div class="left-group">
+              <select id="disease" name="disease">
+                <option value="">Infection Type</option>
+    """
+    
     sql_query = "SELECT description FROM Infection_Type"
     results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
     for row in results:
-        page_html += f"<option value=\"{row[0]}\">{row[0]}</option>"
+        val = str(row[0])
+        selected = " selected" if disease == val else ""
+        page_html += f"<option value=\"{val}\"{selected}>{val}</option>"
 
-    page_html += f"""</select>
-    <label for="year">Year:</label>
-    <select id="year" name="year">
-      <option value="">Select</option>
+    page_html += """
+              </select>
+
+              <select id="year" name="year">
+                <option value="">Year</option>
     """
+    
     sql_query = "SELECT * FROM YearDate"
     results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
     for row in results:
-        page_html += f"<option value=\"{row[0]}\">{row[0]}</option>"
-   
-    page_html += f"""</select>
-          <!-- Submit + Reset -->
-              <button type="submit">Filter</button>
-              <a class="reset-link" href="/Infection_Insight">Reset</a>
-    </div>
-  </form>
+        val = str(row[0])
+        selected = " selected" if year == val else ""
+        page_html += f"<option value=\"{val}\"{selected}>{val}</option>"
 
-   <!-- Infection Table -->
-  <table class="data-table">
-    <thead>
-      <tr>
-        <th>Country</th>
-        <th>Infection Type</th>
-        <th>Infection per 100,000 people</th>
-        <th>Year</th>
-      </tr>
-    </thead>
+    page_html += f"""
+              </select>
+            </div>
+
+            <div class="right-group">
+              <input type="submit" value="Show" class="btn">
+            </div>
+          </form>
+
+          <!-- Infection Table -->
+          <div class="table-container">
+            <table id="infection-insight-table" class="vaccination-table">
+              <thead>
+                <tr>
+                  <th>Country</th>
+                  <th>Infection Type</th>
+                  <th>Infection per 100,000 people</th>
+                  <th>Year</th>
+                </tr>
+              </thead>
     """
 
-    
+   
     if disease and year:
         sql_query = f"""SELECT 
   'Global' AS Country,
@@ -146,32 +155,35 @@ HAVING
 ORDER BY 
    "Infection per 100,000 people" ASC;
 """
-        results = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
+        table_rows = pyhtml.get_results_from_query("database/immunisation.db", sql_query)
     else:
-        results = []
+        table_rows = []
 
-    
-    page_html += f"""
-    <tbody id="summary-data">
+    page_html += """
+              <tbody id="summary-data">
     """
-    for row in results:
-        page_html += f"""
-        <tr>
-            <td>{row[0]}</td>
-            <td>{row[1]}</td>
-            <td>{row[2]}</td>
-            <td>{row[3]}</td>
-        </tr>
+    if table_rows:
+        for row in table_rows:
+            page_html += f"""
+                <tr>
+                    <td>{row[0]}</td>
+                    <td>{row[1]}</td>
+                    <td>{row[2]}</td>
+                    <td>{row[3]}</td>
+                </tr>
+            """
+    else:
+        page_html += """
+                <tr><td colspan="4" style="text-align:center;">Select an infection type and year, then click Show.</td></tr>
         """
 
     page_html += f"""
-        </tbody>
-       </table>
+              </tbody>
+            </table>
+          </div>
 
-  <!-- Integrated Footer -->
-            {component.footer.footer}
-     
-        </main>
+        </div> 
+
         </body>
         </html>
     """
