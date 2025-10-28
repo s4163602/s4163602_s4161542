@@ -1,6 +1,5 @@
 import pyhtml
 import component.navbar
-import component.footer
 
 def get_page_html(form_data):
     print("Rendering Level 3 – Biggest Improvement in Vaccination Rates (4-column, styled threshold input)")
@@ -13,11 +12,10 @@ def get_page_html(form_data):
             return val[0]
         return val if val is not None else default
 
-    # -------- form state --------
-    var_antigen    = str(get_value("var_antigen") or "")
+    var_antigen = str(get_value("var_antigen") or "")
     var_start_year = str(get_value("var_start_year") or "")
-    var_end_year   = str(get_value("var_end_year") or "")
-    var_topn       = str(get_value("var_topn", "10") or "10")
+    var_end_year = str(get_value("var_end_year") or "")
+    var_topn = str(get_value("var_topn", "10") or "10")
 
     try:
         safe_topn = max(1, int(var_topn))
@@ -33,7 +31,6 @@ def get_page_html(form_data):
   <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="/static/main.css">
   <style>
-    /* --- Threshold input styling --- */
     .threshold-input {{
       border: 1px solid #d1d5db;
       border-radius: 0.5rem;
@@ -68,20 +65,17 @@ def get_page_html(form_data):
         <select name="var_antigen">
           <option value="">Antigen</option>"""
 
-    # Antigen dropdown
     for a_id, a_name in pyhtml.get_results_from_query(db_path, "SELECT AntigenID, name FROM Antigen ORDER BY name;"):
         selected = " selected" if var_antigen == str(a_id) else ""
         page_html += f"<option value='{a_id}'{selected}>{a_name}</option>"
     page_html += "</select>"
 
-    # Start Year
     page_html += "<select name='var_start_year'><option value=''>Start year</option>"
     for (year,) in pyhtml.get_results_from_query(db_path, "SELECT DISTINCT year FROM Vaccination ORDER BY year;"):
         selected = " selected" if var_start_year == str(year) else ""
         page_html += f"<option value='{year}'{selected}>{year}</option>"
     page_html += "</select>"
 
-    # End Year
     page_html += "<select name='var_end_year'><option value=''>End year</option>"
     for (year,) in pyhtml.get_results_from_query(db_path, "SELECT DISTINCT year FROM Vaccination ORDER BY year;"):
         selected = " selected" if var_end_year == str(year) else ""
@@ -95,7 +89,6 @@ def get_page_html(form_data):
 
       <div class="right-group">
         <input type="submit" value="Show" class="btn">
-        <button type="button" class="download-btn" data-target="improvement-table">⬇ Download Excel</button>
       </div>
     </form>
 
@@ -173,23 +166,6 @@ def get_page_html(form_data):
     </div>
 
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.core.min.js"></script>
-  <script>
-    function exportTableToExcel(tableId, filename) {
-      var table = document.getElementById(tableId);
-      if (!table) return;
-      var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
-      XLSX.writeFile(wb, filename);
-    }
-
-    document.querySelectorAll('.download-btn[data-target]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
-        var targetId = this.getAttribute('data-target');
-        var filename = "vaccination_improvement_4cols.xlsx";
-        exportTableToExcel(targetId, filename);
-      });
-    });
-  </script>
 </body>
 </html>
 """

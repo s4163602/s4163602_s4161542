@@ -1,6 +1,5 @@
 import pyhtml
 import component.navbar
-import component.footer
 
 def get_page_html(form_data):
     print("Rendering Level 2 – Vaccination Rates Page with Two Distinct Tables (state preserved + Excel export)")
@@ -20,7 +19,6 @@ def get_page_html(form_data):
     var_threshold_raw = str(get_value("var_threshold", "90") or "90")
     var_antigen_summary = str(get_value("var_antigen_summary") or "")
 
-    # --- sanitise threshold to [0,100] integer for display; float/100 for query when DB stores 0..1 ---
     try:
         safe_threshold_int = max(0, min(100, int(float(var_threshold_raw))))
     except:
@@ -75,14 +73,11 @@ def get_page_html(form_data):
     <div class="right-group">
       <input type="submit" value="Show" class="btn">
       <input type="hidden" name="var_antigen_summary" value="{var_antigen_summary}">
-      <!-- keep threshold state in form 1 as well so it persists -->
       <input id="hidden-threshold" type="hidden" name="var_threshold" value="{safe_threshold_int}">
-      <button type="button" class="download-btn" data-target="vaccination-table-1">⬇ Download Excel</button>
     </div>
   </form>
 """
 
-    # --- TABLE 1 ---
     page_html += """
   <div class="table-container">
     <table id="vaccination-table-1" class="vaccination-table">
@@ -114,7 +109,6 @@ def get_page_html(form_data):
         page_html += "<tr><td colspan='5' style='text-align:center;'>Select filters and click Show.</td></tr>"
     page_html += "</tbody></table></div>"
 
-    # --- TABLE 2 ---
     page_html += f"""
   <hr style="margin:2rem 0; border:none; border-top:1px solid #e5e7eb;">
   <h2 id="table2" class="table-heading">Data Summary by Threshold</h2>
@@ -139,7 +133,6 @@ def get_page_html(form_data):
   </form>
 """
 
-    # --- Table 2 logic ---
     page_html += f"""
   <div class="table-container">
     <table id="vaccination-table-2" class="vaccination-table">
@@ -172,43 +165,6 @@ def get_page_html(form_data):
 
     page_html += f"""
   </div>
-
-  <!-- Use FULL build so XLSX.utils.* is available -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.19.3/xlsx.full.min.js"></script>
-  <script>
-    // Live-update the "Countries ≥ X%" column header as the user changes the threshold
-    (function() {{
-      var th = document.getElementById('th-threshold');
-      var input = document.getElementById('threshold-input');
-      var hidden = document.getElementById('hidden-threshold'); // keep form-1 in sync too
-      if (th && input) {{
-        input.addEventListener('input', function() {{
-          var v = parseInt(this.value, 10);
-          if (isNaN(v)) v = {safe_threshold_int};
-          v = Math.max(0, Math.min(100, v));
-          th.textContent = 'Countries ≥ ' + v + '%';
-          if (hidden) hidden.value = v;
-        }});
-      }}
-    }})();
-    function exportTableToExcel(tableId, filename) {{
-      if (typeof XLSX === 'undefined') {{
-        alert('XLSX library not loaded. Check the CDN.');
-        return;
-      }}
-      var table = document.getElementById(tableId);
-      if (!table) return;
-      var wb = XLSX.utils.table_to_book(table, {{ sheet: 'Sheet1' }});
-      XLSX.writeFile(wb, filename);
-    }}
-    document.querySelectorAll('.download-btn[data-target]').forEach(function(btn) {{
-      btn.addEventListener('click', function() {{
-        var targetId = this.getAttribute('data-target');
-        var filename = 'vaccination_table.xlsx';
-        exportTableToExcel(targetId, filename);
-      }});
-    }});
-  </script>
 </body>
 </html>
 """
