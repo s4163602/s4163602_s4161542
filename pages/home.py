@@ -29,14 +29,14 @@ def get_page_html(form_data):
                 <section class="facts" id="facts">
                     <div class="facts-content">
                         <div class="facts-text">
-                            <h2>Vaccination Progress<br>from 2000 to 2025</h2>
+                            <h2>Facts</h2>
                             <p>Comprehensive data tracking global health inventions and their outcomes.</p>
                         </div>
                         <div class="facts-grid">
-                            <div class="fact-box">Fact</div>
-                            <div class="fact-box">Fact</div>
-                            <div class="fact-box">Fact</div>
-                            <div class="fact-box">Fact</div>
+                            <div class="fact-box">Data available from 2000 to 2024</div>
+                            <div class="fact-box">Data about 5 antigens: RCV1, MCV1, MCV2, DTPCV1, and DTPCV3</div>
+                            <div class="fact-box">Data about 3 diseases: 3 diseases, Measles, Rubella, Pertussis RCV1</div>
+                            <div class="fact-box">19,232,497 reported infected cases</div>
                         </div>
                     </div>
                 </section>
