@@ -159,3 +159,26 @@
     width: 100%;
   }
 }
+
+.threshold-input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.4rem 0.75rem;
+  width: 5rem;
+  font-size: 0.95rem;
+  text-align: center;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.threshold-input:focus {
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.3);
+}
+
+.threshold-label {
+  margin-left: 0.5rem;
+  font-size: 0.95rem;
+  color: #374151;
+  font-weight: 500;
+}
