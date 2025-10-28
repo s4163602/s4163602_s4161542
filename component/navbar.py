@@ -8,7 +8,7 @@ navbar = """
         <li class="dropdown">
           <a href="#">Data Explorer ▾</a>
           <ul class="dropdown-menu">
-            <li><a href="#facts">Vaccination</a></li>
+            <li><a href="/vaccination">Vaccination</a></li>
             <li><a href="/Infection">Infection</a></li>
           </ul>
         </li>
