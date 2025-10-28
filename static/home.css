@@ -9,22 +9,25 @@
     padding: 6rem 2rem 4rem; /* space for fixed navbar */
   }
 
-  /* Hero Section */
   .hero {
-    /*background: #fff;*/
-    color: black; /* test */
+    color: black;
     text-align: center;
+    background-image: url(".././image/hero-bg.webp");
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
+    
   }
 
   .hero h1 {
     font-size: 2rem;
-    color: black; /* test*/
+    color: white; /* test*/
     font-weight: 700;
     margin-bottom: 1rem;
   }
 
   .hero p {
-    color: black; /* change color */
+    color: white; /* change color */
     max-width: 700px;
     margin: 0 auto 2rem;
   }
@@ -117,7 +120,12 @@
 
   /* Insights + Integrated Footer Section */
   .insights {
-    background: #fff;
+    color: black;
+    background-image: url(".././image/insights-bg.jpg");
+    background-position: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    background-blend-mode: darken;
+    background-repeat: no-repeat;
     border-top: 1px solid #e5e7eb;
     display: flex;
     flex-direction: column;
@@ -134,13 +142,14 @@
   }
 
   .insights h3 {
+    color: white;
     font-size: 1.5rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
   }
 
   .insights p {
-    color: #4b5563;
+    color: white;
     max-width: 700px;
     margin: 0 auto 1.5rem;
   }

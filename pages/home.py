@@ -50,8 +50,8 @@ def get_page_html(form_data):
                             <a href="/Infection_Insight" class="btn btn-outline">Infection Insights</a>
                         </div>
                     </div>
-                    {component.footer.footer}
                 </section>
+                {component.footer.footer}
             </main>
         </body>
         </html>

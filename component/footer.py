@@ -1,7 +1,7 @@
 footer = """
       <div class="footer-integrated">
         <div class="footer-inner">
-          <div class="footer-logo">LOGO</div>
+          <a href="/"><img style="width: 80px; height: 60px" src="image/logo.png"/></a>
           <div class="footer-links">
             <a href="#">Copyright statements</a>
             <a href="#">Trademarks</a>
