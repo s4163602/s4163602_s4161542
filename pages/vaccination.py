@@ -17,8 +17,15 @@ def get_page_html(form_data):
     var_country = str(get_value("var_country") or "")
     var_region = str(get_value("var_region") or "")
     var_year = str(get_value("var_year") or "")
-    var_threshold = str(get_value("var_threshold", "90") or "90")
+    var_threshold_raw = str(get_value("var_threshold", "90") or "90")
     var_antigen_summary = str(get_value("var_antigen_summary") or "")
+
+    # --- sanitise threshold to [0,100] integer for display; float/100 for query when DB stores 0..1 ---
+    try:
+        safe_threshold_int = max(0, min(100, int(float(var_threshold_raw))))
+    except:
+        safe_threshold_int = 90
+    threshold_float = safe_threshold_int / 100.0
 
     page_html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -28,7 +35,6 @@ def get_page_html(form_data):
   <title>Vaccination Rates</title>
   <link rel="stylesheet" href="/static/style.css">
   <link rel="stylesheet" href="/static/main.css">
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.19.3/dist/xlsx.full.min.js"></script>
 </head>
 
 <body class="page-body">
@@ -37,7 +43,7 @@ def get_page_html(form_data):
 
   <h2 id="table1" class="table-heading">Vaccination Rates</h2>
 
-  <form action="/vaccination#table1" method="GET" class="filter-bar">
+  <form id="form-table1" action="/vaccination#table1" method="GET" class="filter-bar">
     <div class="left-group">
       <select name='var_antigen'><option value=''>Antigen</option>"""
 
@@ -69,7 +75,8 @@ def get_page_html(form_data):
     <div class="right-group">
       <input type="submit" value="Show" class="btn">
       <input type="hidden" name="var_antigen_summary" value="{var_antigen_summary}">
-      <input type="hidden" name="var_threshold" value="{var_threshold}">
+      <!-- keep threshold state in form 1 as well so it persists -->
+      <input id="hidden-threshold" type="hidden" name="var_threshold" value="{safe_threshold_int}">
       <button type="button" class="download-btn" data-target="vaccination-table-1">⬇ Download Excel</button>
     </div>
   </form>
@@ -112,14 +119,14 @@ def get_page_html(form_data):
   <hr style="margin:2rem 0; border:none; border-top:1px solid #e5e7eb;">
   <h2 id="table2" class="table-heading">Data Summary by Threshold</h2>
 
-  <form action="/vaccination#table2" method="GET" class="filter-bar">
+  <form id="form-table2" action="/vaccination#table2" method="GET" class="filter-bar">
     <div class="left-group">
       <select name='var_antigen_summary'><option value=''>Antigen</option>"""
     for a_id, a_name in pyhtml.get_results_from_query(db_path, "SELECT AntigenID, name FROM Antigen ORDER BY name;"):
         selected = " selected" if var_antigen_summary == str(a_id) else ""
         page_html += f"<option value='{a_id}'{selected}>{a_name}</option>"
     page_html += f"""</select>
-      <input type="number" name="var_threshold" min="0" max="100" value="{var_threshold}" class="threshold-input">
+      <input type="number" name="var_threshold" min="0" max="100" value="{safe_threshold_int}" class="threshold-input" id="threshold-input">
     </div>
     <div class="right-group">
       <input type="submit" value="Show" class="btn">
@@ -138,15 +145,14 @@ def get_page_html(form_data):
     <table id="vaccination-table-2" class="vaccination-table">
       <thead>
         <tr>
-          <th>Antigen</th><th>Year</th><th>Countries ≥ {var_threshold}%</th><th>Region</th>
+          <th>Antigen</th><th>Year</th><th id="th-threshold">Countries ≥ {safe_threshold_int}%</th><th>Region</th>
         </tr>
       </thead>
       <tbody>
     """
     if var_antigen_summary:
-        threshold_float = float(var_threshold) / 100.0
         query_2 = f"""
-        SELECT a.name, v.year, COUNT(c.CountryID), c.region
+        SELECT a.name AS antigen_name, v.year AS year, COUNT(c.CountryID) AS num_countries, c.region AS region
         FROM Vaccination v
         JOIN Country c ON v.country = c.CountryID
         JOIN Antigen a ON v.antigen = a.AntigenID
@@ -164,23 +170,44 @@ def get_page_html(form_data):
         page_html += "<tr><td colspan='4' style='text-align:center;'>Select antigen and threshold to view summary.</td></tr>"
     page_html += "</tbody></table></div>"
 
-    page_html += """
+    page_html += f"""
   </div>
+
+  <!-- Use FULL build so XLSX.utils.* is available -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.19.3/xlsx.full.min.js"></script>
   <script>
-    function exportTableToExcel(tableId, filename) {
+    // Live-update the "Countries ≥ X%" column header as the user changes the threshold
+    (function() {{
+      var th = document.getElementById('th-threshold');
+      var input = document.getElementById('threshold-input');
+      var hidden = document.getElementById('hidden-threshold'); // keep form-1 in sync too
+      if (th && input) {{
+        input.addEventListener('input', function() {{
+          var v = parseInt(this.value, 10);
+          if (isNaN(v)) v = {safe_threshold_int};
+          v = Math.max(0, Math.min(100, v));
+          th.textContent = 'Countries ≥ ' + v + '%';
+          if (hidden) hidden.value = v;
+        }});
+      }}
+    }})();
+    function exportTableToExcel(tableId, filename) {{
+      if (typeof XLSX === 'undefined') {{
+        alert('XLSX library not loaded. Check the CDN.');
+        return;
+      }}
       var table = document.getElementById(tableId);
       if (!table) return;
-      var wb = XLSX.utils.table_to_book(table, { sheet: "Sheet1" });
+      var wb = XLSX.utils.table_to_book(table, {{ sheet: 'Sheet1' }});
       XLSX.writeFile(wb, filename);
-    }
-
-    document.querySelectorAll('.download-btn[data-target]').forEach(function(btn) {
-      btn.addEventListener('click', function() {
+    }}
+    document.querySelectorAll('.download-btn[data-target]').forEach(function(btn) {{
+      btn.addEventListener('click', function() {{
         var targetId = this.getAttribute('data-target');
-        var filename = "vaccination_table.xlsx";
+        var filename = 'vaccination_table.xlsx';
         exportTableToExcel(targetId, filename);
-      });
-    });
+      }});
+    }});
   </script>
 </body>
 </html>
