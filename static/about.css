@@ -1,104 +1,108 @@
 section {
-    height: 100vh;
-    scroll-snap-align: start;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.8s ease;
-    padding: 6rem 2rem 4rem; 
-  } 
-/* Mission Section */
+  height: 100vh;
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.8s ease;
+  padding: 6rem 2rem 4rem;
+}
 
-   
-  .mission {
-    background: #fff;
-    text-align: center;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-    
 
-  .mission h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
+.mission {
+  background: #fff;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
 
-  .mission p {
-    color: #374151;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-  
-  /* Usage Section */ 
-  .usage {
-    background: #fff;
-    text-align: center;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  .usage h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-  .usage p {
-    color: #374151;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-  /* personas */
-  .personas {
-    background: #fff;
-    text-align: center;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 2rem;
-  }
-  .persona h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-  .persona p {
-    color: #374151;
-    font-size: 1.25rem;
-    line-height: 1.75rem;
-  }
 
-  .user-persona {
-    margin-bottom: 1.5rem;
-    display: inline-block;  /* keeps everything centered but allows left alignment inside */
-    text-align: left;       
-    line-height: 1.8;
-  }
-/* Team Section */
-  .team {
-    background: #fff;
-    text-align: center;
-    padding: 2rem;
-    border-radius: 0.5rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-top: 2rem;
-  }
-  .team h1 {
-    font-size: 2rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-  }
-  .team p {
-    color: #374151;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
+.mission h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
 
-  .member {
-    margin-bottom: 1.5rem;
-    display: inline-block;  /* keeps everything centered but allows left alignment inside */
-    text-align: left;       
-    line-height: 1.8;
-  }
+.mission p {
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.usage {
+  background: #fff;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.usage h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.usage p {
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.personas {
+  background: #fff;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.persona h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.persona p {
+  color: #374151;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.user-persona {
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  text-align: left;
+  line-height: 1.8;
+}
+
+.team {
+  background: #fff;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 2rem;
+}
+
+.team h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.team p {
+  color: #374151;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+.member {
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  text-align: left;
+  line-height: 1.8;
+}

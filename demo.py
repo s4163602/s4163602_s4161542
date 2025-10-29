@@ -14,7 +14,6 @@ pyhtml.MyRequestHandler.pages["/Infection"] = pages.Infection
 pyhtml.MyRequestHandler.pages["/Infection_Insight"] = pages.Infection_Insight
 pyhtml.MyRequestHandler.pages["/vaccination_insight"] = pages.Vaccination_insight
 
-#Host the site!
 pyhtml.host_site()
 
 

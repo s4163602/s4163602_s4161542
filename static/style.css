@@ -6,12 +6,11 @@
   margin-bottom: 1.5rem;
 }
 
-/* --- Filter bar layout --- */
 .filter-bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-between; /* left + right sides */
+  justify-content: space-between;
   gap: 0.75rem;
   margin-bottom: 1rem;
 }
@@ -49,7 +48,6 @@
   outline: none;
 }
 
-/* --- Buttons --- */
 .btn {
   border: 1px solid #2563eb;
   background: #2563eb;
