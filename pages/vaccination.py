@@ -23,7 +23,7 @@ def get_page_html(form_data):
         safe_threshold_int = max(0, min(100, int(float(var_threshold_raw))))
     except:
         safe_threshold_int = 90
-    threshold_float = safe_threshold_int / 100.0
+    # threshold is already 0–100; do NOT divide by 100
 
     page_html = f"""<!DOCTYPE html>
 <html lang="en">
@@ -90,7 +90,7 @@ def get_page_html(form_data):
     """
     if var_antigen and var_year:
         query_1 = f"""
-        SELECT a.name, v.year, c.name, c.region, ROUND(v.coverage * 100, 1)
+        SELECT a.name, v.year, c.name, c.region, ROUND(v.coverage, 1)
         FROM Vaccination v
         JOIN Country c ON v.country = c.CountryID
         JOIN Antigen a ON v.antigen = a.AntigenID
@@ -128,7 +128,6 @@ def get_page_html(form_data):
       <input type="hidden" name="var_country" value="{var_country}">
       <input type="hidden" name="var_region" value="{var_region}">
       <input type="hidden" name="var_year" value="{var_year}">
-      <button type="button" class="download-btn" data-target="vaccination-table-2">⬇ Download Excel</button>
     </div>
   </form>
 """
@@ -149,7 +148,7 @@ def get_page_html(form_data):
         FROM Vaccination v
         JOIN Country c ON v.country = c.CountryID
         JOIN Antigen a ON v.antigen = a.AntigenID
-        WHERE v.antigen = '{var_antigen_summary}' AND v.coverage >= {threshold_float}
+        WHERE v.antigen = '{var_antigen_summary}' AND v.coverage >= {safe_threshold_int}
         GROUP BY a.name, v.year, c.region
         ORDER BY v.year, num_countries DESC;
         """
@@ -165,6 +164,34 @@ def get_page_html(form_data):
 
     page_html += f"""
   </div>
+<script>
+  (function() {{
+    var th = document.getElementById('th-threshold');
+    var input = document.getElementById('threshold-input');
+    var hidden = document.getElementById('hidden-threshold');
+
+    function clamp(n) {{
+      var v = parseInt(n, 10);
+      if (isNaN(v)) v = {safe_threshold_int};
+      return Math.max(0, Math.min(100, v));
+    }}
+
+    function sync() {{
+      if (!input) return;
+      var v = clamp(input.value);
+      if (th) th.textContent = 'Countries ≥ ' + v + '%';
+      if (hidden) hidden.value = v; // keep form 1 threshold aligned
+    }}
+
+    if (input) {{
+      input.addEventListener('input', sync);
+      input.addEventListener('change', sync);
+      input.addEventListener('blur', sync);
+      // initialize on load
+      sync();
+    }}
+  }})();
+</script>
 </body>
 </html>
 """
