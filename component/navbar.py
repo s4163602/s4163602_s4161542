@@ -22,7 +22,6 @@ navbar = """
     </ul>
   </div>
   <div class="nav-right">
-    <input type="text" class="search" placeholder="Search">
   </div>
 </nav>
 
