@@ -21,9 +21,6 @@ navbar = """
       </li>
     </ul>
   </div>
-  <div class="nav-right">
-    <input type="text" class="search" placeholder="Search">
-  </div>
 </nav>
 
 <script>
@@ -35,12 +32,10 @@ navbar = """
       var href = link.getAttribute("href").toLowerCase();
       var isInsideLink = link.classList.contains("inside-link");
 
-      // only activate if not inside-link
       if (!isInsideLink && href === currentPath) {
         link.classList.add("active");
       }
 
-      // if an inside-link matches current path, highlight parent dropdown only
       if (isInsideLink && href === currentPath) {
         var dropdown = link.closest(".dropdown");
         if (dropdown) {

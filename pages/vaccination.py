@@ -23,7 +23,6 @@ def get_page_html(form_data):
         safe_threshold_int = max(0, min(100, int(float(var_threshold_raw))))
     except:
         safe_threshold_int = 90
-    # threshold is already 0–100; do NOT divide by 100
 
     page_html = f"""<!DOCTYPE html>
 <html lang="en">
