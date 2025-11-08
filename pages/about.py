@@ -22,15 +22,12 @@ def get_page_html(form_data):
         <main>
         <section class="mission" id="mission">
         <h1><b>Mission:</b></h1>
-        <p> The website provides accurate and up-to-date infection and vaccination data to support informed analysis and evidence-based decision-making. 
-        It serves as a reliable and authentic platform that ensures the information presented is genuine, current, and clearly structured for easy understanding and research use</p>
+        <p> This website aims to deliver accurate, reliable, and up-to-date information on infection and vaccination data. Its purpose is to support informed analysis, academic study, and evidence-based decision-making in the medical and health sectors. The platform ensures that all data presented is authentic, verified, and clearly structured, enabling users to easily interpret and apply the information for research, professional insights, and policy development.</p>
         </section>
 
         <section class="usage" id="usage">
         <h1>How to use this site:</h1>
-        <p> To use this website, navigate through the various sections using the menu bar at the top.
-        Explore the interactive charts and graphs to analyze infection trends and vaccination rates.
-        Utilize the filters and options available to customize the data view according to your research needs.</p>
+        <p> To explore the website, use the navigation menu at the top of the page. The Data Explorer section allows you to view and compare infection and vaccination trends through interactive tables. You can apply various filters and selection options to customize the data according to specific diseases, years, or economic phases etc. The Insights section provides analytical comparisons and key observations based on the latest datasets, helping users draw meaningful conclusions. Each section is designed to be intuitive and informative, ensuring a seamless experience for researchers, students, and professionals seeking credible health data.</p>
         </section>
          
         
